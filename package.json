@@ -4,7 +4,7 @@
   "description": "MoJ TA test",
   "main": "index.js",
   "scripts": {
-    "test": "test.js"
+    "server": "node index.js",
   },
   "keywords": [
     "moj",
