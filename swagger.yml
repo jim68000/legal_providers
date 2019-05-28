@@ -29,9 +29,78 @@ paths:
       operationId: "getProviders"
       produces:
         - "text/csv"
+      parameters:
+        - name: id
+          type: string
+          description: "Filter providers by ID"
+          in: query
+        - name: name
+          type: string
+          description: "Filter providers by name"
+          in: query
+        - name: address1
+          type: string
+          description: "Filter providers by first line of address"
+          in: query
+        - name: city
+          type: string
+          description: "Filter providers by city name"
+          in: query
+        - name: postcode
+          type: string
+          description: "Filter providers by postcode"
+          in: query
+        - name: phone
+          type: string
+          description: "Filter providers by phone number"
+          in: query
+        - name: org_type
+          description: "One from list of possible org types"
+          in: query
+          type: string
+          enum:
+            - charity
+            - mediation
+            - private
+            - solicitor
+        - name: cat_crime
+          type: number
+          description: "1 for true, 0 for false"
+          in: query
+          enum:
+            - 0
+            - 1
+        - name: cat_debt
+          type: number
+          description: "1 for true, 0 for false"
+          in: query
+          enum:
+            - 0
+            - 1
+        - name: cat_housing
+          type: number
+          description: "1 for true, 0 for false"
+          in: query
+          enum:
+            - 0
+            - 1
+        - name: cat_immigration_or_asylum
+          type: number
+          description: "1 for true, 0 for false"
+          in: query
+          enum:
+            - 0
+            - 1
+      - name: cat_welfare_benefits
+        type: number
+        description: "1 for true, 0 for false"
+        in: query
+        enum:
+          - 0
+          - 1
       responses:
         404:
-          description: "Source file not found"
+          description: "Provider not found"
   /provider:
     get:
       tags:

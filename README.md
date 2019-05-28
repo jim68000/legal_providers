@@ -9,16 +9,16 @@ The app exposes two endpoints:
 
 ## Individual records
 
-`/provider/{id}` - this extracts a single legal provider from the data.
+`/v1/provider/{id}` - this extracts a single legal provider from the data.
 
-http://localhost:3000/provider/1 should return Moore-Watson
+http://localhost:3000/v1/provider/1 should return Moore-Watson
 
 The app simply rejects out of range ids.
 
 ## Filtered response
 
 `providers?{paramName}={paramValue}` - the filters the entire list of
-providers using the keywords supplied as arguements. You can search
+providers using the keywords supplied as arguments. You can search
 using all the column names from the CSV: `id`, `name`, `address1`,
 `city`, `postcode`, `phone`, `org_type`, `cat_crime`, `cat_debt`,
 `cat_housing`, `cat_immigration_or_asylum`, `cat_welfare_benefits`
@@ -29,10 +29,7 @@ Cat values are either 0 or 1; all others must be exact
 
 This is very bare bones and there are a lot of things missing that I
 would normally regard as essential. Error messaging is minimal and testing
-is crude - I didn't have enough time to implement a full mocha & supertest
-suite. Coding the main part fo the exercise took 40 m and a full mocha
-set up would take a similar amount of time, so instead we have some `assert`
-based sanity checks
+is crude.
 
 Normally for this sort of API we would expect data to be stored in some
 sort of storage mechanism, either a KV store like Redis or a full
