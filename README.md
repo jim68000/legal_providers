@@ -13,7 +13,7 @@ The app exposes two endpoints:
 
 http://localhost:3000/provider/1 should return Moore-Watson
 
-The app simply rejects out of range ids
+The app simply rejects out of range ids.
 
 ## Filtered response
 
@@ -28,10 +28,19 @@ Cat values are either 0 or 1; all others must be exact
 ## Notes on implementation
 
 This is very bare bones and there are a lot of things missing that I
-would normally regard as essential. Error messaging is minimal; testing
-is crude; I haven't blessed Express with a full set of error handlers.
+would normally regard as essential. Error messaging is minimal and testing
+is crude - I didn't have enough time to implement a full mocha & supertest
+suite. Coding the main part fo the exercise took 40 m and a full mocha
+set up would take a similar amount of time, so instead we have some `assert`
+based sanity checks
 
-Note of dependency choice:
+Normally for this sort of API we would expect data to be stored in some
+sort of storage mechanism, either a KV store like Redis or a full
+database like Postgres. However as the data is very small and static
+I've chosen to load it into memory at start up instead. This keeps
+the implementation small.
+
+### Notes on dependency choices:
 
 CSV is the only NPM CSV library with a synchronous parse and load; all
 others are stream based, which would have added a considerable layer of
@@ -41,4 +50,3 @@ Express is my default HTTP framework. I considered HAPI but felt that
 learning a new framework (even if I would only need to know the next bit
 after 'Hello, world')  was overkill.
 
-Lodash is just for convenience when dealing with functional type code.

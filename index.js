@@ -1,24 +1,29 @@
-const parse = require('csv-parse/lib/sync')
-const fs = require('fs')
-const _ = require('lodash')
-
-const legal_providers = parse(fs.readFileSync('./legal-providers.csv', 'UTF-8'), {columns: true})
-
 const express = require('express')
+
+const {
+  load_data,
+  filter_data,
+  filter_illegal_keys
+} = require('./lib.js')
+
 const app = express()
 
+const legal_providers = load_data('./legal-providers.csv')
+
 app.get('/providers', (req, res) => {
-  if (_.isEmpty(req.query)) {
+  if (Object.keys(req.query).length === 0 && req.query.constructor === Object) {
     res.json(legal_providers)
   } else {
-    const sought_keys = Object.keys(req.query)
-    filtered = legal_providers
-    sought_keys.forEach((key) => {
-      filtered = filtered.filter((l) => l[key] === req.query[key])
-    })
+    const all_keys = Object.keys(req.query)
+
+    // filter out illegal keys
+    const sought_keys =filter_illegal_keys(all_keys)
+    const filtered = filter_data(legal_providers, sought_keys, req.query)
+
     if (filtered.length === 0) {
       res.status(404).send('No matching providers')
     }
+
     res.json(filtered)
   }
 })
@@ -30,3 +35,4 @@ app.get('/provider/:id?', (req, res) => {
 })
 
 app.listen(3000, () => console.log('app started at 3000'))
+
