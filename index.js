@@ -8,9 +8,11 @@ const {
 
 const app = express()
 
+const version = '/v1'
+
 const legal_providers = load_data('./legal-providers.csv')
 
-app.get('/providers', (req, res) => {
+app.get(`${version}/providers`, (req, res) => {
   if (Object.keys(req.query).length === 0 && req.query.constructor === Object) {
     res.json(legal_providers)
   } else {
@@ -28,7 +30,7 @@ app.get('/providers', (req, res) => {
   }
 })
 
-app.get('/provider/:id?', (req, res) => {
+app.get(`${version}/provider/:id?`, (req, res) => {
   // deal with off by one diff between file and array representation
   const idx = parseInt(req.params.id, 10) - 1
   res.json(legal_providers[idx])
