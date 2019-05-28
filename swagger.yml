@@ -1,0 +1,54 @@
+swagger: "2.0"
+info:
+  description: "Legal providers tech test"
+  version: "1.0.0"
+  title: "Legal Providers"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "jim.smith@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3000"
+basePath: "/v1"
+tags:
+  - name: "legal providers"
+    description: "Sample legal provider app"
+    externalDocs:
+      description: "Docs to start and test"
+      url: "https://github.com/jim68000/legal_providers"
+schemes:
+  - "http"
+paths:
+  /providers:
+    get:
+      tags:
+        - "legal provider"
+      summary: "Retrieve a full list of legal providers"
+      description: "Legal provider full list"
+      operationId: "getProviders"
+      produces:
+        - "text/csv"
+      responses:
+        404:
+          description: "Source file not found"
+  /provider:
+    get:
+      tags:
+        - "legal provider"
+      summary: "Retrieve a legal provider by id"
+      description: "IDs are simple numbers"
+      operationId: "getProviderById"
+      produces:
+        - "text/csv"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Numeric ID of a legal provider"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+        404:
+          description: "Provider not found"
